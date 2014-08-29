@@ -9,7 +9,7 @@ public class EventListActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_event);
+		setContentView(R.layout.activity_events);
 		
 		FragmentManager fm = getSupportFragmentManager();
 	    EventListFragment fragment = (EventListFragment)fm.findFragmentById(R.id.fragmentContainer);
@@ -18,4 +18,5 @@ public class EventListActivity extends FragmentActivity {
 	        fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit(); 
 	    }
 	}
+	
 }
