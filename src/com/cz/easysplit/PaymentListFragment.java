@@ -11,18 +11,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
-public class EventListFragment extends ListFragment {
-	private ArrayList<Event> myEvents;
+public class PaymentListFragment extends ListFragment {
+	private ArrayList<Payment> myPayments;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActivity().setTitle("my Events");
-		myEvents = EventLab.get(getActivity()).getEvents();
+		getActivity().setTitle("my Payments");
+		myPayments = PaymentLab.get(getActivity()).getPayments();
 		
-		ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
+		ArrayAdapter<Payment> adapter = new ArrayAdapter<Payment>(getActivity(),
 											android.R.layout.simple_list_item_1,
-											myEvents);
+											myPayments);
 		setListAdapter(adapter);
 		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -33,7 +33,7 @@ public class EventListFragment extends ListFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    super.onCreateOptionsMenu(menu, inflater);
-	    inflater.inflate(R.menu.event_action_bar, menu);
+	    //inflater.inflate(R.menu.Payment_action_bar, menu);
 	}
 	
 	@Override

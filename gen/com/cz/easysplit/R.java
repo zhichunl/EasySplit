@@ -33,7 +33,7 @@ public final class R {
         public static final int setting_button=0x7f080003;
     }
     public static final class layout {
-        public static final int activity_events=0x7f030000;
+        public static final int activity_fragment=0x7f030000;
         public static final int activity_main=0x7f030001;
     }
     public static final class menu {

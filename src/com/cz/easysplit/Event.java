@@ -17,6 +17,7 @@ public class Event {
 	public UUID getId() {
 		return eId;
 	}
+	
 	@Override
 	public String toString(){
 		return eventName + " " + eventDate.toString();

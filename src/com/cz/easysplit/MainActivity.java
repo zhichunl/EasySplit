@@ -29,6 +29,15 @@ public class MainActivity extends Activity {
         });
         
         paymentButton = (Button)findViewById(R.id.payment_button);
+        paymentButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, PaymentListActivity.class);
+				startActivity(i);
+			}
+		});
+        
         settingButton = (Button)findViewById(R.id.setting_button);
         
     }

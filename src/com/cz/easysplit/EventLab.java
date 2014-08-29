@@ -13,7 +13,7 @@ public class EventLab {
 	
 	private EventLab(Context appContext) {
 		myAppContext = appContext;
-		Event e1 = new Event("Eating with Zhichun", new Date(1220227200));
+		Event e1 = new Event("Eating with Zhichun hfjdksahih ghjk duytf gyu drdu yuftf iyti", new Date(1220227200));
 		Event e2 = new Event("Doing hw with Terence", new Date(120237200));
 		myEvents = new ArrayList<Event>();
 		myEvents.add(0, e1);
