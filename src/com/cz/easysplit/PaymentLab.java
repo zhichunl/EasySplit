@@ -20,8 +20,18 @@ public class PaymentLab {
 		myAppContext = appContext;
 		/*Payment p1 = new Payment();
 		p1.setFrom(ParseUser.getCurrentUser());
-		p1.setTo(ParseUser.getCurrentUser());
-		p1.setAmount(-100.0);
+		
+		ParseQuery<ParseUser> query1 = ParseUser.getQuery();
+		query1.whereEqualTo("username", "coconut");
+		try {
+			ParseUser user2 = (ParseUser) query1.get("HxC9rrsq8r");
+			p1.setTo(user2);
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+				
+		p1.setAmount(52.0);
 		try {
 			p1.save();
 		} catch (ParseException e1) {

@@ -43,7 +43,7 @@ public class Payment extends ParseObject {
 	public String toString(){
 		DecimalFormat df = new DecimalFormat("#.00");
 		try {
-			return getTo().getUsername() + "   " + df.format(getAmount());
+			return getTo().getUsername() + "       " + df.format(getAmount());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
