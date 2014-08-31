@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
 
 
 public class MainActivity extends Activity {
@@ -17,6 +21,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(this, "TE6sMM3aeJbNGcb0XQE4IILPlqpO1dBrv0iR69Gd", "R2tMg0521ieHPCeKTjkaeIC4zvqJY3jHBPCyjMXy");
+        PushService.setDefaultPushCallback(this, MainActivity.class);
         setContentView(R.layout.activity_main);
         
         eventButton = (Button)findViewById(R.id.event_button);

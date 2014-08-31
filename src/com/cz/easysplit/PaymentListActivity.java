@@ -3,6 +3,10 @@ package com.cz.easysplit;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
 
 public class PaymentListActivity extends FragmentActivity {
 	@Override
