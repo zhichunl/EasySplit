@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.PushService;
 
 
@@ -21,7 +24,22 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Parse.initialize(this, "TE6sMM3aeJbNGcb0XQE4IILPlqpO1dBrv0iR69Gd", "R2tMg0521ieHPCeKTjkaeIC4zvqJY3jHBPCyjMXy");
+        /*ParseUser user = new ParseUser();
+        user.setUsername("coconut");
+        user.setPassword("password");
+        try {
+			user.signUp();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+        
+        try {
+			ParseUser.logIn("coconut", "password");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         PushService.setDefaultPushCallback(this, MainActivity.class);
         setContentView(R.layout.activity_main);
         

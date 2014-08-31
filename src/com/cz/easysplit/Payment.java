@@ -3,29 +3,51 @@ package com.cz.easysplit;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.UUID;
+import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
-public class Payment {
-	public String from;
+@ParseClassName("Payment")
+public class Payment extends ParseObject {
+	/*public String from;
 	public String to;
-	private UUID pid;
 	public double amount;
-	public boolean paid;
+	public boolean paid;*/
 	
-	public Payment(String curFrom, String curTo, double curAmount) {
-		from = curFrom;
-		to = curTo;
-		amount = curAmount;
-		pid = UUID.randomUUID();
-		paid = false;
+	public double getAmount() {
+		return getDouble("amount");
+	}
+	
+	public void setAmount(double amount) {
+		put("amount", amount);
+	}
+	
+	public ParseUser getFrom() throws ParseException {
+		return getParseUser("from").fetch();
+	}
+	
+	public void setFrom(ParseUser user) {
+		put("from", user);
+	}
+	
+	public ParseUser getTo() throws ParseException {
+		return getParseUser("to").fetch();
+	}
+	
+	public void setTo(ParseUser user) {
+		put("to", user);
 	}
 
-	public UUID getId() {
-		return pid;
-	}
-	
 	@Override
 	public String toString(){
-		DecimalFormat df = new DecimalFormat("#.00"); 
-		return to + "             " + df.format(amount);
+		DecimalFormat df = new DecimalFormat("#.00");
+		try {
+			return getTo().getUsername() + "   " + df.format(getAmount());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

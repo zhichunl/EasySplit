@@ -2,7 +2,12 @@ package com.cz.easysplit;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import android.content.Context;
 
@@ -13,11 +18,30 @@ public class PaymentLab {
 	
 	private PaymentLab(Context appContext) {
 		myAppContext = appContext;
-		Payment p1 = new Payment("Coco", "Zhichun", -100.00);
-		Payment p2 = new Payment("Coco", "Tian", 200);
+		/*Payment p1 = new Payment();
+		p1.setFrom(ParseUser.getCurrentUser());
+		p1.setTo(ParseUser.getCurrentUser());
+		p1.setAmount(-100.0);
+		try {
+			p1.save();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		
+		//Payment p2 = new Payment("Coco", "Tian", 200);
 		myPayments = new ArrayList<Payment>();
-		myPayments.add(0, p1);
-		myPayments.add(0, p2);
+		ParseQuery<Payment> query = ParseQuery.getQuery(Payment.class);
+		query.whereEqualTo("from", ParseUser.getCurrentUser());
+		try {
+			myPayments = (ArrayList<Payment>)query.find();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//myPayments.add(0, p1);
+		//myPayments.add(0, p2);
 	}
 	
 	public static PaymentLab get(Context c) {
@@ -31,16 +55,16 @@ public class PaymentLab {
 		return myPayments;
 	}
 	
-	public Payment getPayment(UUID id) {
+	/*public Payment getPayment(String) {
 		for (Payment e : myPayments) {
 			if (e.getId().equals(id)) {
 				return e;
 			}
 		}
 		return null;
-	}
+	}*/
 	
-	public void prependPayment(Payment e) {
+	/*public void prependPayment(Payment e) {
 		myPayments.add(0, e);   //prepend it to the list
-	}
+	}*/
 }
