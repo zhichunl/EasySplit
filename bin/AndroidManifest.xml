@@ -24,25 +24,25 @@
     	android:name="com.cz.easysplit.permission.C2D_MESSAGE" />
 	<uses-permission android:name="com.cz.easysplit.permission.C2D_MESSAGE" />
     <application
-        android:name="com.cz.easysplit.MyApplication"
+        android:name="com.cz.easysplit.General.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".EventListActivity">
+        <activity android:name="com.cz.easysplit.Events.EventListActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value=".MainActivity"/>
 	    </activity>
-	    <activity android:name=".PaymentListActivity">
+	    <activity android:name="com.cz.easysplit.Payments.PaymentListActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value=".MainActivity"/>
 	    </activity>
-	    <activity android:name=".MainActivity">
+	    <activity android:name="com.cz.easysplit.General.MainActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value=".LoginActivity"/>
 	    </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.cz.easysplit.General.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                <action android:name="android.intent.action.MAIN" />
