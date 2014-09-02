@@ -26,8 +26,6 @@ import android.widget.EditText;
 public class LoginActivity extends Activity {
 	private Button login;
 	private Button signup;
-	private String username;
-	private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +63,11 @@ public class LoginActivity extends Activity {
         });
         
         signup = (Button)findViewById(R.id.signup);
-        signup.setOnClickListener(new View.OnClickListener() {
-			
+        signup.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View v) {
-
+				Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+        		startActivity(i);
 			}
 		});
         

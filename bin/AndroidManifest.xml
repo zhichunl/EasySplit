@@ -31,16 +31,18 @@
         android:theme="@style/AppTheme" >
         <activity android:name="com.cz.easysplit.Events.EventListActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
-                   android:value=".MainActivity"/>
+                   android:value="com.cz.easysplit.General.MainActivity"/>
 	    </activity>
 	    <activity android:name="com.cz.easysplit.Payments.PaymentListActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
-                   android:value=".MainActivity"/>
+                   android:value="com.cz.easysplit.General.MainActivity"/>
 	    </activity>
 	    <activity android:name="com.cz.easysplit.General.MainActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value=".LoginActivity"/>
 	    </activity>
+	    <activity android:name="com.cz.easysplit.General.SignUpActivity">
+        </activity>
         <activity
             android:name="com.cz.easysplit.General.LoginActivity"
             android:label="@string/app_name" >
