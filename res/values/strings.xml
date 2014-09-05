@@ -12,4 +12,7 @@
 	<string name="signup">Sign Up</string>
 	<string name="logout">Logout</string>
 	<string name="confirm">Confirm Password</string>
+    <string name="eventName">Enter your event name</string>
+    <string name="addPerson">Add a person</string>
+    
 </resources>

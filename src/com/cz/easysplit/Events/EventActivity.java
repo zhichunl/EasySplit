@@ -1,6 +1,6 @@
 package com.cz.easysplit.Events;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,17 +16,21 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 
-public class EventListActivity extends FragmentActivity {
+public class EventActivity extends FragmentActivity {	
+	public FragmentManager fm;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fragment);
 		
-		FragmentManager fm = getSupportFragmentManager();
+		fm = getSupportFragmentManager();
 	    EventListFragment fragment = (EventListFragment)fm.findFragmentById(R.id.fragmentContainer);
 	    if (fragment == null) {
 	    	fragment = new EventListFragment();
 	        fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit(); 
 	    }
 	}
+	
+	
 }

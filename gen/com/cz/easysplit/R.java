@@ -25,34 +25,42 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int confirm=0x7f080008;
-        public static final int done=0x7f080009;
-        public static final int event_button=0x7f080005;
-        public static final int fragmentContainer=0x7f080000;
-        public static final int login=0x7f080003;
-        public static final int logout=0x7f08000c;
-        public static final int menu_item_create=0x7f08000a;
-        public static final int menu_item_join=0x7f08000b;
-        public static final int password=0x7f080002;
-        public static final int payment_button=0x7f080006;
-        public static final int setting_button=0x7f080007;
-        public static final int signup=0x7f080004;
-        public static final int username=0x7f080001;
+        public static final int activity_event_editing=0x7f080000;
+        public static final int addEvent=0x7f08000e;
+        public static final int confirm=0x7f08000b;
+        public static final int done=0x7f08000c;
+        public static final int event_button=0x7f080008;
+        public static final int event_name=0x7f080001;
+        public static final int fragmentContainer=0x7f080003;
+        public static final int joinEvent=0x7f08000f;
+        public static final int login=0x7f080006;
+        public static final int logout=0x7f080010;
+        public static final int menu_item_create=0x7f08000d;
+        public static final int password=0x7f080005;
+        public static final int payment_button=0x7f080009;
+        public static final int person_to_add_to_event=0x7f080002;
+        public static final int setting_button=0x7f08000a;
+        public static final int signup=0x7f080007;
+        public static final int username=0x7f080004;
     }
     public static final class layout {
-        public static final int activity_fragment=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_signup=0x7f030003;
-        public static final int list_item_event=0x7f030004;
+        public static final int activity_event_editing=0x7f030000;
+        public static final int activity_fragment=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_signup=0x7f030004;
+        public static final int list_item_event=0x7f030005;
     }
     public static final class menu {
-        public static final int event_action_bar=0x7f070000;
-        public static final int main=0x7f070001;
+        public static final int event_editting_action_bar=0x7f070000;
+        public static final int event_list_action_bar=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
+        public static final int addPerson=0x7f05000c;
         public static final int app_name=0x7f050000;
         public static final int confirm=0x7f05000a;
+        public static final int eventName=0x7f05000b;
         public static final int event_button=0x7f050002;
         public static final int hello_world=0x7f050001;
         public static final int login=0x7f050007;

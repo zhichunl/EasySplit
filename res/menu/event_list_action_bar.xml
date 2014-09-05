@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_item_create"
+    <item android:id="@+id/addEvent"
     android:title="Add"
     android:showAsAction="always"/>
-    <item android:id="@+id/menu_item_join"
+    <item android:id="@+id/joinEvent"
     android:title="Join"
     android:showAsAction="always"/>
 </menu>

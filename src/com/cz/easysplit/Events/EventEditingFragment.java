@@ -7,38 +7,46 @@ import com.cz.easysplit.R.menu;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.NavUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-public class EventListFragment extends ListFragment {
-	private ArrayList<Event> myEvents;
+public class EventEditingFragment extends Fragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActivity().setTitle("my Events");
-		myEvents = EventLab.get(getActivity()).getEvents();
+		getActivity().setTitle("New Event");
 		
-		ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
+		/*ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
 											android.R.layout.simple_list_item_1,
-											myEvents);
+											new ArrayList());
 		setListAdapter(adapter);
 		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		    }
+		 }*/
+		    
 		setHasOptionsMenu(true);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.activity_event_editing, container, false);
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    super.onCreateOptionsMenu(menu, inflater);
-	    inflater.inflate(R.menu.event_list_action_bar, menu);
+	    inflater.inflate(R.menu.event_editting_action_bar, menu);
 	}
 	
 	@Override
@@ -49,23 +57,9 @@ public class EventListFragment extends ListFragment {
 	                NavUtils.navigateUpFromSameTask(getActivity());
 	            }	        	
 	        	return true;
-	        case R.id.addEvent:	    		
-	    		FragmentManager fm = getActivity().getSupportFragmentManager();
-	    		FragmentTransaction transaction = fm.beginTransaction();
-	    		
-	    	    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
-	    	    
-	    	    if (fragment == null) {
-	    	    	fragment = new EventEditingFragment();
-	    	    }
-
-	    	    transaction.replace(R.id.fragmentContainer, fragment);
-	    	    transaction.addToBackStack(null);
-	    	    transaction.commit();
-	    	    return true;
+	        // case submit later
 	        default:
 	        	return super.onOptionsItemSelected(item);
-
 	    } 
 	}
 }

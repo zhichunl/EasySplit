@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cz.easysplit.R;
-import com.cz.easysplit.Events.EventListActivity;
+import com.cz.easysplit.Events.EventActivity;
 import com.cz.easysplit.Payments.PaymentListActivity;
 import com.cz.easysplit.R.id;
 import com.cz.easysplit.R.layout;
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         eventButton.setOnClickListener(new View.OnClickListener() {
         	@Override
         	public void onClick(View v) {
-        		Intent i = new Intent(MainActivity.this, EventListActivity.class);
+        		Intent i = new Intent(MainActivity.this, EventActivity.class);
         		startActivity(i);
         	}
         });
