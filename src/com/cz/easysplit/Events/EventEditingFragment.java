@@ -67,12 +67,12 @@ public class EventEditingFragment extends Fragment {
         	public void onClick(View v) {
         		final EditText usernameText = (EditText) inflatedView.findViewById(R.id.person_to_add_to_event);
         		String username = usernameText.getText().toString();
-        		
+    			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         		// check if the username already exists. TODO: Too slow??
         		for (Prepaid p : prepaidListFragment.prepaids) {     		
         			try {
 						if (p.getUser().getUsername().equals(username)) {
-							AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				            builder.setMessage("This user has already been added.");
 				            builder.setCancelable(true);
 				            builder.setNegativeButton("Okay",
@@ -93,12 +93,6 @@ public class EventEditingFragment extends Fragment {
 					}
         		}
         		
-        		/*try {
-        			prepaid.save();
-        		} catch (ParseException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
-        		}*/
         		ParseQuery<ParseUser> query = ParseUser.getQuery();
         		query.whereEqualTo("username", username);
 				try {
@@ -110,7 +104,6 @@ public class EventEditingFragment extends Fragment {
 	            		prepaidListFragment.prepaids.add(prepaid);
 	            		prepaidListFragment.updatePrepaidList();
 	        		} else {
-	        			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			            builder.setMessage("This user does not exist.");
 			            builder.setCancelable(true);
 			            builder.setNegativeButton("Okay",
@@ -125,19 +118,6 @@ public class EventEditingFragment extends Fragment {
 	        		}
             		usernameText.setText("");
 				} catch (ParseException e) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		            builder.setMessage("This user does not exist.");
-		            builder.setCancelable(true);
-		            builder.setNegativeButton("Okay",
-		                    new DialogInterface.OnClickListener() {
-		            		public void onClick(DialogInterface dialog, int id) {
-		                    dialog.cancel();
-		                }		            
-		            });
-
-		            AlertDialog alert = builder.create();
-		            alert.show();
-            		usernameText.setText("");
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
