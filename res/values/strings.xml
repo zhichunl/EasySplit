@@ -14,5 +14,9 @@
 	<string name="confirm">Confirm Password</string>
     <string name="eventName">Enter your event name</string>
     <string name="addPerson">Add a person</string>
+    <string name="inviteAFriend">+</string>
+    <string name="event_submit">Submit</string>
+    <string name="event_done">Done</string>
+     
     
 </resources>

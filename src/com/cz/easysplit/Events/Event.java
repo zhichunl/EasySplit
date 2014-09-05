@@ -31,9 +31,11 @@ public class Event extends ParseObject{
 		}
 		return prepaidsFetched;
 	}
+	
 	public void setCosts(ArrayList<Prepaid> costs){
 		put("costs", costs);
 	}
+	
 	public ArrayList<Transaction> getTransactions() throws ParseException{
 		List<Transaction> transactions = getList("transactions");
 		ArrayList<Transaction> transFetched = new ArrayList<Transaction>();

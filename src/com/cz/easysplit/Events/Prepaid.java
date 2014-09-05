@@ -7,10 +7,10 @@ import com.parse.ParseUser;
 @ParseClassName("Prepaid")
 public class Prepaid extends ParseObject {
 
-	public double getAmountPaidName() {
+	public double getAmountPaid() {
 		 return getDouble("AmountPaid");
 	}
-	public void setAmountPaidName(double amount){
+	public void setAmountPaid(double amount){
 		put("AmountPaid", amount);
 	}
 	public ParseUser getUser() throws ParseException{
@@ -20,4 +20,14 @@ public class Prepaid extends ParseObject {
 		put("User", user);
 	}
 
+	@Override
+	public String toString() {
+		try {
+			return getUser().getUsername() + "     " + getAmountPaid();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 }

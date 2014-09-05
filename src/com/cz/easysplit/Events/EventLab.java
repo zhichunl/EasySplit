@@ -19,7 +19,7 @@ public class EventLab {
 	
 	private EventLab(Context appContext) {
 		myAppContext = appContext;
-		Event event1 = new Event();
+		/*Event event1 = new Event();
 		event1.setName("Buying Food");
 		event1.seteventDate(new Date(121237200));
 		ArrayList<Prepaid> people = new ArrayList<Prepaid>();
@@ -37,14 +37,14 @@ public class EventLab {
 		UserEvents events = new UserEvents();
 		events.setUser(ParseUser.getCurrentUser());
 		ArrayList<Event> allEvents = new ArrayList<Event>();
-		allEvents.add(event1);
+		//allEvents.add(event1);
 		events.setEvents(allEvents);
 		try {
 			events.save();
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		myEvents = new ArrayList<Event>();
 		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());

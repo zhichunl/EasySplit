@@ -42,12 +42,12 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}*/
         
-        try {
+        /*try {
 			ParseUser.logIn("zhichun", "password");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         PushService.setDefaultPushCallback(this, MainActivity.class);
         setContentView(R.layout.activity_main);
         

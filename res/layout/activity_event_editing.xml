@@ -10,10 +10,28 @@
 			    android:layout_height="wrap_content"
 			    android:hint="@string/eventName"
 			    android:inputType="text" /> 
-	<EditText
+	<LinearLayout
+	    android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    	<EditText
 			    android:id="@+id/person_to_add_to_event"
 			    android:layout_width="200dp"
 			    android:layout_height="wrap_content"
 			    android:hint="@string/addPerson"
 			    android:inputType="text" /> 
+				<Button
+			    android:id="@+id/addAPerson"
+			    android:layout_width="64dp"
+			    android:layout_height="wrap_content"
+			    android:text="@string/inviteAFriend"
+      			android:layout_marginBottom ="25dp" />
+	    
+	</LinearLayout>
+
+			    
+	<FrameLayout 
+  				android:id="@+id/eventAttenderContainer"
+  				android:layout_width="match_parent"
+  				android:layout_height="match_parent"/>
 </LinearLayout>
