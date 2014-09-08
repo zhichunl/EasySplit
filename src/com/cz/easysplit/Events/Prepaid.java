@@ -10,6 +10,7 @@ public class Prepaid extends ParseObject {
 	public double getAmountPaid() {
 		 return getDouble("AmountPaid");
 	}
+	
 	public void setAmountPaid(double amount){
 		put("AmountPaid", amount);
 	}
@@ -24,6 +25,7 @@ public class Prepaid extends ParseObject {
 		}
 		return null;
 	}
+	
 	public void setUser(ParseUser user){
 		put("User", user);
 	}
