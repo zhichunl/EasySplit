@@ -11,9 +11,11 @@ public class UserEvents extends ParseObject {
 	public ParseUser getUser() throws ParseException {
 		return getParseUser("user").fetch();
 	}
+	
 	public void setUser(ParseUser eventUser){
 		put("user", eventUser);
 	}
+	
 	public ArrayList<Event> getEvents() throws ParseException {
 		List<Event> rawList = getList("Events");
 		ArrayList<Event> allEvents = new ArrayList<Event>();
@@ -23,6 +25,7 @@ public class UserEvents extends ParseObject {
 		}
 		return allEvents;
 	}
+	
 	public void setEvents(ArrayList<Event> allEvents){
 		put("Events", allEvents);
 	}

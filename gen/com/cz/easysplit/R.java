@@ -27,24 +27,28 @@ public final class R {
     public static final class id {
         public static final int activity_event_editing=0x7f080000;
         public static final int addAPerson=0x7f080003;
-        public static final int addEvent=0x7f080011;
-        public static final int confirm=0x7f08000d;
-        public static final int done=0x7f08000e;
-        public static final int eventAttenderContainer=0x7f080004;
-        public static final int event_button=0x7f08000a;
-        public static final int event_done=0x7f080010;
+        public static final int addEvent=0x7f080015;
+        public static final int confirm=0x7f08000e;
+        public static final int done=0x7f08000f;
+        public static final int eventAttenderContainer=0x7f080005;
+        public static final int eventCreationHint=0x7f080004;
+        public static final int event_button=0x7f08000b;
+        public static final int event_done=0x7f080014;
         public static final int event_name=0x7f080001;
-        public static final int event_submit=0x7f08000f;
-        public static final int fragmentContainer=0x7f080005;
-        public static final int joinEvent=0x7f080012;
-        public static final int login=0x7f080008;
-        public static final int logout=0x7f080013;
-        public static final int password=0x7f080007;
-        public static final int payment_button=0x7f08000b;
+        public static final int event_submit=0x7f080013;
+        public static final int fragmentContainer=0x7f080006;
+        public static final int joinEvent=0x7f080016;
+        public static final int list_item_prepaid_add_amount=0x7f080010;
+        public static final int list_item_prepaid_amount=0x7f080012;
+        public static final int list_item_prepaid_name=0x7f080011;
+        public static final int login=0x7f080009;
+        public static final int logout=0x7f080017;
+        public static final int password=0x7f080008;
+        public static final int payment_button=0x7f08000c;
         public static final int person_to_add_to_event=0x7f080002;
-        public static final int setting_button=0x7f08000c;
-        public static final int signup=0x7f080009;
-        public static final int username=0x7f080006;
+        public static final int setting_button=0x7f08000d;
+        public static final int signup=0x7f08000a;
+        public static final int username=0x7f080007;
     }
     public static final class layout {
         public static final int activity_event_editing=0x7f030000;
@@ -53,6 +57,7 @@ public final class R {
         public static final int activity_main=0x7f030003;
         public static final int activity_signup=0x7f030004;
         public static final int list_item_event=0x7f030005;
+        public static final int list_item_prepaid=0x7f030006;
     }
     public static final class menu {
         public static final int event_editting_action_bar=0x7f070000;

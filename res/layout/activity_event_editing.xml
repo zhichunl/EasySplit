@@ -25,11 +25,12 @@
 			    android:layout_width="64dp"
 			    android:layout_height="wrap_content"
 			    android:text="@string/inviteAFriend"
-      			android:layout_marginBottom ="25dp" />
-	    
+      			android:layout_marginBottom ="25dp" />	    
 	</LinearLayout>
-
-			    
+    <TextView android:id="@+id/eventCreationHint"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Enter the amount each person paid." />	    
 	<FrameLayout 
   				android:id="@+id/eventAttenderContainer"
   				android:layout_width="match_parent"

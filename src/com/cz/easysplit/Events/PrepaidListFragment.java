@@ -2,30 +2,37 @@ package com.cz.easysplit.Events;
 
 import java.util.ArrayList;
 
+import com.cz.easysplit.R;
 import com.parse.ParseUser;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewGroupCompat;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class PrepaidListFragment extends ListFragment {
-	public ArrayList<Prepaid> prepaids;
-	private ArrayAdapter<Prepaid> adapter;
+	public ArrayList<Prepaid> myPrepaids;
+	private PrepaidAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		prepaids = new ArrayList(); //EventLab.get(getActivity()).getEvents();
+		myPrepaids = new ArrayList(); //EventLab.get(getActivity()).getEvents();
 		Prepaid prepaid = new Prepaid();
 		prepaid.setUser(ParseUser.getCurrentUser());
 		prepaid.setAmountPaid(0);
-		prepaids.add(prepaid);
+		myPrepaids.add(prepaid);
 		
-		adapter = new ArrayAdapter<Prepaid>(getActivity(),
+		/*adapter = new ArrayAdapter<Prepaid>(getActivity(),
 											android.R.layout.simple_list_item_1,
-											prepaids);
+											prepaids);*/
+		adapter = new PrepaidAdapter(myPrepaids);
 		setListAdapter(adapter);
 		/*Event event1 = new Event();
 		event1.setName("Buying Food");
@@ -59,8 +66,35 @@ public class PrepaidListFragment extends ListFragment {
 		setHasOptionsMenu(true);*/
 	}
 	
+	public ArrayList<Prepaid> getPrepaids() {
+		return myPrepaids;
+	}
+	
 	public void updatePrepaidList() {
 	    //adapter.clear();
 	    adapter.notifyDataSetChanged();
+	}
+	
+	private class PrepaidAdapter extends ArrayAdapter<Prepaid> {
+		
+		public PrepaidAdapter(ArrayList<Prepaid> prepaids) {
+			super(getActivity(), 0, prepaids);
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = getActivity().getLayoutInflater()
+								.inflate(R.layout.list_item_prepaid, null);	
+			}
+			Prepaid p = myPrepaids.get(position);
+			TextView nameView = (TextView)convertView.findViewById(R.id.list_item_prepaid_name);
+			nameView.setText(p.getUser().getUsername());
+			TextView amountView = (TextView)convertView.findViewById(R.id.list_item_prepaid_amount);
+			amountView.setText((new Double(p.getAmountPaid())).toString());
+			Button plusButton = (Button)convertView.findViewById(R.id.list_item_prepaid_add_amount);
+			return convertView;
+		}
+		
 	}
 }

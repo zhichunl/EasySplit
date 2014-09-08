@@ -13,8 +13,16 @@ public class Prepaid extends ParseObject {
 	public void setAmountPaid(double amount){
 		put("AmountPaid", amount);
 	}
-	public ParseUser getUser() throws ParseException{
-		return getParseUser("User").fetch();
+	
+	//TODO: Is returning null the best way?
+	public ParseUser getUser() {
+		try {
+			return getParseUser("User").fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public void setUser(ParseUser user){
 		put("User", user);
@@ -22,12 +30,6 @@ public class Prepaid extends ParseObject {
 
 	@Override
 	public String toString() {
-		try {
-			return getUser().getUsername() + "     " + getAmountPaid();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
+		return getUser().getUsername() + "     " + getAmountPaid();
 	}
 }

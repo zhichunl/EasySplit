@@ -70,26 +70,21 @@ public class EventEditingFragment extends Fragment {
     			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         		// check if the username already exists. TODO: Too slow??
-        		for (Prepaid p : prepaidListFragment.prepaids) {     		
-        			try {
-						if (p.getUser().getUsername().equals(username)) {
-				            builder.setMessage("This user has already been added.");
-				            builder.setCancelable(true);
-				            builder.setNegativeButton("Okay",
-				                    new DialogInterface.OnClickListener() {
-				            		public void onClick(DialogInterface dialog, int id) {
-				                    dialog.cancel();
-				                }		            
-				            });
+        		for (Prepaid p : prepaidListFragment.getPrepaids()) {     		
+        			if (p.getUser().getUsername().equals(username)) {
+					    builder.setMessage("This user has already been added.");
+					    builder.setCancelable(true);
+					    builder.setNegativeButton("Okay",
+					            new DialogInterface.OnClickListener() {
+					    		public void onClick(DialogInterface dialog, int id) {
+					            dialog.cancel();
+					        }		            
+					    });
 
-				            AlertDialog alert = builder.create();
-				            alert.show();
-		            		usernameText.setText("");
-		            		return;
-		        		}
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    AlertDialog alert = builder.create();
+					    alert.show();
+						usernameText.setText("");
+						return;
 					}
         		}
         		
@@ -101,7 +96,7 @@ public class EventEditingFragment extends Fragment {
 	            		Prepaid prepaid = new Prepaid();
 	        			prepaid.setUser(users.get(0));
 	            		prepaid.setAmountPaid(0);
-	            		prepaidListFragment.prepaids.add(prepaid);
+	            		prepaidListFragment.getPrepaids().add(prepaid);
 	            		prepaidListFragment.updatePrepaidList();
 	        		} else {
 			            builder.setMessage("This user does not exist.");
@@ -147,4 +142,5 @@ public class EventEditingFragment extends Fragment {
 	        	return super.onOptionsItemSelected(item);
 	    } 
 	}
+
 }

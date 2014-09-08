@@ -45,15 +45,13 @@ public class EventLab {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
-		myEvents = new ArrayList<Event>();
+		//myEvents = new ArrayList<Event>();
 		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		try {
-			ArrayList<UserEvents> uE = (ArrayList<UserEvents>)query.find();
-			if (uE.size() > 0){
-				UserEvents currentUserEvents = uE.get(0);
-				myEvents = currentUserEvents.getEvents();
-			}
+			//ArrayList<UserEvents> uE = (ArrayList<UserEvents>)query.find();
+			UserEvents uE = (UserEvents)query.getFirst();
+			myEvents = uE.getEvents();			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
