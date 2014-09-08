@@ -151,7 +151,8 @@ public class EventEditingFragment extends Fragment {
     						e.printStackTrace();
     					}
             		}
-            		newEvent.setName("default event name");
+            		final EditText projectNameText = (EditText) getActivity().findViewById(R.id.event_name);
+            		newEvent.setName(projectNameText.getText().toString());
             		newEvent.seteventDate(new Date(911237200));
             		newEvent.setCosts(prepaids);
             		try {
@@ -181,13 +182,38 @@ public class EventEditingFragment extends Fragment {
             			}		
             		} catch (ParseException e) {
             			// TODO Auto-generated catch block
-            			e.printStackTrace();
+            			UserEvents newUE = new UserEvents();
+        				newUE.setUser(ParseUser.getCurrentUser());
+        				ArrayList<Event> allEvents = new ArrayList<Event>();
+        				allEvents.add(newEvent);
+        				newUE.setEvents(allEvents);
+        				try {
+							newUE.save();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							//e1.printStackTrace();
+						}
             		}
-    	        	if (NavUtils.getParentActivityName(getActivity()) != null) {
+    	        	/*if (NavUtils.getParentActivityName(getActivity()) != null) {
     	                NavUtils.navigateUpFromSameTask(getActivity());
-    	            }	  
+    	            }*/
+            		FragmentManager fm = getActivity().getSupportFragmentManager();
+    	    		FragmentTransaction transaction = fm.beginTransaction();
+    	    		
+    	    	    EventListFragment fragment = (EventListFragment)fm.findFragmentById(R.layout.activity_fragment);
+    	    	    
+    	    	    if (fragment == null) {
+    	    	    	fragment = new EventListFragment();
+    	    	    }
+    	    	    //fragment.setMyEvents(EventLab.get(getActivity()).getEvents());
+    	    	   
+
+    	    	    transaction.replace(R.id.fragmentContainer, fragment);
+    	    	    transaction.addToBackStack(null);
+    	    	    transaction.commit();
+    	    	    //fragment.getAdapter().notifyDataSetChanged();
+    	    	    return true;
 	        }
-        	return true;
 	        default:
 	        	return super.onOptionsItemSelected(item);
 	    } 

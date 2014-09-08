@@ -18,14 +18,27 @@ import android.widget.ArrayAdapter;
 
 public class EventListFragment extends ListFragment {
 	private ArrayList<Event> myEvents;
+	private ArrayAdapter<Event> adapter;
 	
+	public void setMyEvents(ArrayList<Event> myEvents) {
+		this.myEvents = myEvents;
+	}
+
+	public ArrayList<Event> getMyEvents() {
+		return myEvents;
+	}
+
+	public ArrayAdapter<Event> getAdapter() {
+		return adapter;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActivity().setTitle("my Events");
 		myEvents = EventLab.get(getActivity()).getEvents();
 		
-		ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
+		adapter = new ArrayAdapter<Event>(getActivity(),
 											android.R.layout.simple_list_item_1,
 											myEvents);
 		setListAdapter(adapter);
@@ -39,6 +52,13 @@ public class EventListFragment extends ListFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    super.onCreateOptionsMenu(menu, inflater);
 	    inflater.inflate(R.menu.event_list_action_bar, menu);
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		myEvents = EventLab.get(getActivity()).getEvents();
+		adapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -68,4 +88,11 @@ public class EventListFragment extends ListFragment {
 
 	    } 
 	}
+	
+	/*@Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+    doWhateverAfterScreenViewIsRendered();
+    }*/
 }
