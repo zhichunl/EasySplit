@@ -33,9 +33,9 @@ public final class R {
         public static final int eventAttenderContainer=0x7f080005;
         public static final int eventCreationHint=0x7f080004;
         public static final int event_button=0x7f08000b;
-        public static final int event_done=0x7f080014;
+        public static final int event_confirm=0x7f080014;
         public static final int event_name=0x7f080001;
-        public static final int event_submit=0x7f080013;
+        public static final int event_save=0x7f080013;
         public static final int fragmentContainer=0x7f080006;
         public static final int joinEvent=0x7f080016;
         public static final int list_item_prepaid_add_amount=0x7f080010;
@@ -70,7 +70,9 @@ public final class R {
         public static final int confirm=0x7f05000a;
         public static final int eventName=0x7f05000b;
         public static final int event_button=0x7f050002;
+        public static final int event_confirm=0x7f050011;
         public static final int event_done=0x7f05000f;
+        public static final int event_save=0x7f050010;
         public static final int event_submit=0x7f05000e;
         public static final int hello_world=0x7f050001;
         public static final int inviteAFriend=0x7f05000d;

@@ -1,5 +1,6 @@
 package com.cz.easysplit.Events;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class EventEditingFragment extends Fragment {
-	private Button addAPersonBUtton;
+	private Button addAPersonButton;
+	private Button saveButton;
 	private View inflatedView;
 	private PrepaidListFragment prepaidListFragment;
 	
@@ -60,8 +62,8 @@ public class EventEditingFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		inflatedView = inflater.inflate(R.layout.activity_event_editing, container, false);
-		Button addAPersonButton = (Button) inflatedView.findViewById(R.id.addAPerson);
-		
+		addAPersonButton = (Button) inflatedView.findViewById(R.id.addAPerson);
+	    
 	    addAPersonButton.setOnClickListener(new View.OnClickListener() {
         	@Override
         	public void onClick(View v) {
@@ -119,6 +121,7 @@ public class EventEditingFragment extends Fragment {
         		      		
         	}
         });
+	    
 		return inflatedView;
 		
 	}
@@ -137,7 +140,54 @@ public class EventEditingFragment extends Fragment {
 	                NavUtils.navigateUpFromSameTask(getActivity());
 	            }	        	
 	        	return true;
-	        // case submit later
+	        // TODO: Does not save seems that
+	        case R.id.event_save: {
+            		Event newEvent = new Event();
+            		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
+            		for (Prepaid p : prepaids) {
+        				try {
+    						p.save();
+    					} catch (ParseException e) {
+    						e.printStackTrace();
+    					}
+            		}
+            		newEvent.setName("default event name");
+            		newEvent.seteventDate(new Date(911237200));
+            		newEvent.setCosts(prepaids);
+            		try {
+            			newEvent.save();
+            		} catch (ParseException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+            		
+            		
+            		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+            		query.whereEqualTo("user", ParseUser.getCurrentUser());
+            		try {
+            			UserEvents uE = (UserEvents)query.getFirst();
+            			if (uE == null) {
+            				UserEvents newUE = new UserEvents();
+            				newUE.setUser(ParseUser.getCurrentUser());
+            				ArrayList<Event> allEvents = new ArrayList<Event>();
+            				allEvents.add(newEvent);
+            				newUE.setEvents(allEvents);
+            				newUE.save();
+            			} else {       				
+            				ArrayList<Event> events = uE.getEvents();
+            				events.add(newEvent);
+            				uE.setEvents(events);
+            				uE.save();
+            			}		
+            		} catch (ParseException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		}
+    	        	if (NavUtils.getParentActivityName(getActivity()) != null) {
+    	                NavUtils.navigateUpFromSameTask(getActivity());
+    	            }	  
+	        }
+        	return true;
 	        default:
 	        	return super.onOptionsItemSelected(item);
 	    } 

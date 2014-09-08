@@ -17,6 +17,8 @@
     <string name="inviteAFriend">+</string>
     <string name="event_submit">Submit</string>
     <string name="event_done">Done</string>
+    <string name="event_save">Save</string>
+    <string name="event_confirm">Confirm</string>
      
     
 </resources>

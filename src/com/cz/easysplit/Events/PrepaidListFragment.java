@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class PrepaidListFragment extends ListFragment {
-	public ArrayList<Prepaid> myPrepaids;
+	private ArrayList<Prepaid> myPrepaids;
 	private PrepaidAdapter adapter;
 
 	@Override
