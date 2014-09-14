@@ -14,7 +14,9 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class EventListFragment extends ListFragment {
 	private ArrayList<Event> myEvents;
@@ -60,6 +62,22 @@ public class EventListFragment extends ListFragment {
 		myEvents = EventLab.get(getActivity()).getEvents();
 		adapter.notifyDataSetChanged();
 	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();
+		
+	    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
+	    
+	    if (fragment == null) {
+	    	fragment = new EventEditingFragment();
+	    }
+
+	    transaction.replace(R.id.fragmentContainer, fragment);
+	    transaction.addToBackStack(null);
+	    transaction.commit();
+    }
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
