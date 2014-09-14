@@ -35,6 +35,7 @@ import android.widget.EditText;
 public class EventEditingFragment extends Fragment {
 	private Button addAPersonButton;
 	private Button saveButton;
+	public Event curEvent;
 	private View inflatedView;
 	private PrepaidListFragment prepaidListFragment;
 	
@@ -122,6 +123,9 @@ public class EventEditingFragment extends Fragment {
         		      		
         	}
         });
+	    if (curEvent == null){
+	    	
+	    }
 	    
 		return inflatedView;
 		

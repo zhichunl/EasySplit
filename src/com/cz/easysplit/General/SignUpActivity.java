@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.View;
@@ -28,6 +29,9 @@ public class SignUpActivity extends Activity {
         final EditText usernameText = (EditText) findViewById(R.id.username);
         final EditText passwordText = (EditText) findViewById(R.id.password);
         final EditText cpasswordText = (EditText) findViewById(R.id.confirm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	        getActionBar().setDisplayHomeAsUpEnabled(true);
+	    }
         passToParse = (Button)findViewById(R.id.done);
         passToParse.setOnClickListener(new View.OnClickListener() {
         	@Override

@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class EventListFragment extends ListFragment {
@@ -74,6 +75,8 @@ public class EventListFragment extends ListFragment {
 	    	fragment = new EventEditingFragment();
 	    }
 	    getActivity().setTitle("Event");
+	    Event curEvent = myEvents.get(position);
+	    fragment.curEvent = curEvent;
 	    transaction.replace(R.id.fragmentContainer, fragment);
 	    transaction.addToBackStack(null);
 	    transaction.commit();
@@ -97,6 +100,7 @@ public class EventListFragment extends ListFragment {
 	    	    	fragment = new EventEditingFragment();
 	    	    }
 	    	    getActivity().setTitle("New Event");
+	    	    fragment.curEvent = null;
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();
