@@ -73,7 +73,7 @@ public class EventListFragment extends ListFragment {
 	    if (fragment == null) {
 	    	fragment = new EventEditingFragment();
 	    }
-
+	    getActivity().setTitle("Event");
 	    transaction.replace(R.id.fragmentContainer, fragment);
 	    transaction.addToBackStack(null);
 	    transaction.commit();
@@ -96,7 +96,7 @@ public class EventListFragment extends ListFragment {
 	    	    if (fragment == null) {
 	    	    	fragment = new EventEditingFragment();
 	    	    }
-
+	    	    getActivity().setTitle("New Event");
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();

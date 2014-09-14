@@ -41,7 +41,7 @@ public class EventEditingFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActivity().setTitle("New Event");
+		//getActivity().setTitle("New Event");
 		
 		/*ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
 											android.R.layout.simple_list_item_1,
@@ -50,13 +50,14 @@ public class EventEditingFragment extends Fragment {
 		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 		        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		 }*/
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+	    }
 		    
 		setHasOptionsMenu(true);
 		prepaidListFragment = new PrepaidListFragment();
 		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 		transaction.add(R.id.eventAttenderContainer, prepaidListFragment).commit();
-		
-		
 	}
 	
 	@Override
@@ -135,11 +136,11 @@ public class EventEditingFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	        	if (NavUtils.getParentActivityName(getActivity()) != null) {
-	                NavUtils.navigateUpFromSameTask(getActivity());
-	            }	        	
-	        	return true;
+	        //case android.R.id.home:
+	        	//if (NavUtils.getParentActivityName(getActivity()) != null) {
+	                //NavUtils.navigateUpFromSameTask(getActivity());
+	            //}	        	
+	        	//return true;
 	        // TODO: Does not save seems that
 	        case R.id.event_save: {
             		Event newEvent = new Event();

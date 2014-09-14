@@ -1,5 +1,9 @@
 package com.cz.easysplit.General;
+import java.util.ArrayList;
+
 import com.cz.easysplit.R;
+import com.cz.easysplit.Events.Event;
+import com.cz.easysplit.Events.UserEvents;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import android.app.Activity;
@@ -69,8 +73,12 @@ public class SignUpActivity extends Activity {
             			ParseUser user = new ParseUser();
             			user.setUsername(username);
             			user.setPassword(password);
+            			UserEvents newUE = new UserEvents();
+            			newUE.setEvents(new ArrayList<Event>());
+            			newUE.setUser(user);
             			try {
     						user.signUp();
+    						newUE.save();
     						Intent i = new Intent(SignUpActivity.this, MainActivity.class);
     		        		startActivity(i);
     					}catch (ParseException e) {
