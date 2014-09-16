@@ -85,7 +85,12 @@ public class PrepaidListFragment extends ListFragment {
 		        				if (value == null || value.isEmpty()) {
 		        					amount = 0.0;
 		        				} else {
-		        					amount = Double.parseDouble(value);
+		        					try {
+			        					amount = Double.parseDouble(value);
+		        					}
+		        					catch (NumberFormatException e) {
+		        						amount = 0;
+		        					}
 		        				}
 		        				Prepaid prepaid = myPrepaids.get(position);
 		        				prepaid.setAmountPaid(prepaid.getAmountPaid()+amount);
