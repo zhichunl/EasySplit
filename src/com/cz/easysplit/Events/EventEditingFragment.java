@@ -154,6 +154,21 @@ public class EventEditingFragment extends Fragment {
 	            //}	        	
 	        	//return true;
 	        // TODO: Does not save seems that
+	    	case R.id.event_cancel: {
+        		FragmentManager fm = getActivity().getSupportFragmentManager();
+	    		FragmentTransaction transaction = fm.beginTransaction();
+	    		
+	    	    EventListFragment fragment = (EventListFragment)fm.findFragmentById(R.layout.activity_fragment);
+	    	    
+	    	    if (fragment == null) {
+	    	    	fragment = new EventListFragment();
+	    	    }    	    	   
+
+	    	    transaction.replace(R.id.fragmentContainer, fragment);
+	    	    transaction.addToBackStack(null);
+	    	    transaction.commit();
+	    	    return true;
+	    	}
 	        case R.id.event_save: {
 	        		if (curEvent == null) {
 	        			// Only create a new event and add it to UserEvent if it is new
@@ -191,10 +206,6 @@ public class EventEditingFragment extends Fragment {
             			e.printStackTrace();
             		}
             		
-
-    	        	/*if (NavUtils.getParentActivityName(getActivity()) != null) {
-    	                NavUtils.navigateUpFromSameTask(getActivity());
-    	            }*/
             		FragmentManager fm = getActivity().getSupportFragmentManager();
     	    		FragmentTransaction transaction = fm.beginTransaction();
     	    		
@@ -202,14 +213,11 @@ public class EventEditingFragment extends Fragment {
     	    	    
     	    	    if (fragment == null) {
     	    	    	fragment = new EventListFragment();
-    	    	    }
-    	    	    //fragment.setMyEvents(EventLab.get(getActivity()).getEvents());
-    	    	   
+    	    	    }    	    	   
 
     	    	    transaction.replace(R.id.fragmentContainer, fragment);
     	    	    transaction.addToBackStack(null);
     	    	    transaction.commit();
-    	    	    //fragment.getAdapter().notifyDataSetChanged();
     	    	    return true;
 	        }
 	        default:

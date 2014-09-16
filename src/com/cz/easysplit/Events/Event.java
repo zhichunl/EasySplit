@@ -1,8 +1,11 @@
 package com.cz.easysplit.Events;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import android.text.format.DateFormat;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -57,6 +60,7 @@ public class Event extends ParseObject{
 	
 	@Override
 	public String toString(){
-		return getName() + " " + geteventDate().toString();
+		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		return getName() + " " + df.format(geteventDate());
 	}
 }

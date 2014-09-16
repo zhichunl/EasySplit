@@ -19,6 +19,8 @@
     <string name="event_done">Done</string>
     <string name="event_save">Save</string>
     <string name="event_confirm">Confirm</string>
+    <string name="event_cancel">Cancel</string>
+    
      
     
 </resources>
