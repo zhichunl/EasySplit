@@ -56,15 +56,25 @@ public class EventEditingFragment extends Fragment {
 	    }
 		    
 		setHasOptionsMenu(true);
-		prepaidListFragment = new PrepaidListFragment();
-		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-		transaction.add(R.id.eventAttenderContainer, prepaidListFragment).commit();
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if (curEvent != null) {
+			prepaidListFragment = new PrepaidListFragment(curEvent.getCosts());
+		} else {
+			prepaidListFragment = new PrepaidListFragment(null);
+		}
+
+		FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+		transaction.add(R.id.eventAttenderContainer, prepaidListFragment).commit();
+		
 		inflatedView = inflater.inflate(R.layout.activity_event_editing, container, false);
 		addAPersonButton = (Button) inflatedView.findViewById(R.id.addAPerson);
+		final EditText projectNameText = (EditText) inflatedView.findViewById(R.id.event_name);
+		if (curEvent != null) {
+			projectNameText.setText(curEvent.getName());
+		}
 	    
 	    addAPersonButton.setOnClickListener(new View.OnClickListener() {
         	@Override
@@ -123,9 +133,7 @@ public class EventEditingFragment extends Fragment {
         		      		
         	}
         });
-	    if (curEvent == null){
-	    	
-	    }
+	    
 	    
 		return inflatedView;
 		
@@ -147,7 +155,23 @@ public class EventEditingFragment extends Fragment {
 	        	//return true;
 	        // TODO: Does not save seems that
 	        case R.id.event_save: {
-            		Event newEvent = new Event();
+	        		if (curEvent == null) {
+	        			// Only create a new event and add it to UserEvent if it is new
+	        			curEvent = new Event();
+	            		
+	            		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+	            		query.whereEqualTo("user", ParseUser.getCurrentUser());
+	            		try {
+	            			UserEvents uE = (UserEvents)query.getFirst();
+	        				uE.setUser(ParseUser.getCurrentUser());
+	        				ArrayList<Event> allEvents = uE.getEvents();
+	        				allEvents.add(curEvent);
+	        				uE.setEvents(allEvents);
+	        				uE.save();	
+	            		} catch (ParseException e) {
+	            			// TODO Auto-generated catch block
+	            		}
+	        		}
             		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
             		for (Prepaid p : prepaids) {
         				try {
@@ -157,48 +181,17 @@ public class EventEditingFragment extends Fragment {
     					}
             		}
             		final EditText projectNameText = (EditText) getActivity().findViewById(R.id.event_name);
-            		newEvent.setName(projectNameText.getText().toString());
-            		newEvent.seteventDate(new Date(911237200));
-            		newEvent.setCosts(prepaids);
+            		curEvent.setName(projectNameText.getText().toString());
+            		curEvent.seteventDate(new Date(911237200));
+            		curEvent.setCosts(prepaids);
             		try {
-            			newEvent.save();
+            			curEvent.save();
             		} catch (ParseException e) {
             			// TODO Auto-generated catch block
             			e.printStackTrace();
             		}
             		
-            		
-            		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
-            		query.whereEqualTo("user", ParseUser.getCurrentUser());
-            		try {
-            			UserEvents uE = (UserEvents)query.getFirst();
-            			if (uE == null) {
-            				UserEvents newUE = new UserEvents();
-            				newUE.setUser(ParseUser.getCurrentUser());
-            				ArrayList<Event> allEvents = new ArrayList<Event>();
-            				allEvents.add(newEvent);
-            				newUE.setEvents(allEvents);
-            				newUE.save();
-            			} else {       				
-            				ArrayList<Event> events = uE.getEvents();
-            				events.add(newEvent);
-            				uE.setEvents(events);
-            				uE.save();
-            			}		
-            		} catch (ParseException e) {
-            			// TODO Auto-generated catch block
-            			UserEvents newUE = new UserEvents();
-        				newUE.setUser(ParseUser.getCurrentUser());
-        				ArrayList<Event> allEvents = new ArrayList<Event>();
-        				allEvents.add(newEvent);
-        				newUE.setEvents(allEvents);
-        				try {
-							newUE.save();
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							//e1.printStackTrace();
-						}
-            		}
+
     	        	/*if (NavUtils.getParentActivityName(getActivity()) != null) {
     	                NavUtils.navigateUpFromSameTask(getActivity());
     	            }*/

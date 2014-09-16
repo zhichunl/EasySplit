@@ -22,12 +22,18 @@ public class Event extends ParseObject{
 	public void seteventDate(Date eDate){
 		put("eventDate", eDate);
 	}
-	public ArrayList<Prepaid> getCosts() throws ParseException{
+	public ArrayList<Prepaid> getCosts() {
 		List<Prepaid> prepaids = getList("costs");
 		ArrayList<Prepaid> prepaidsFetched = new ArrayList<Prepaid>();
 		for (Prepaid p : prepaids){
-			Prepaid pF = (Prepaid)p.fetch();
-			prepaidsFetched.add(pF);
+			Prepaid pF;
+			try {
+				pF = (Prepaid)p.fetch();
+				prepaidsFetched.add(pF);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return prepaidsFetched;
 	}

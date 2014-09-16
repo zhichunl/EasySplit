@@ -76,54 +76,56 @@ public class EventListFragment extends ListFragment {
 		builder.setMessage("What would you like to do?");
         builder.setCancelable(true);
         builder.setPositiveButton("Delete", 
-        		new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						Event eventToDelete = getMyEvents().get(p);
-						try {
-							eventToDelete.delete();
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						ArrayList<Event> events = getMyEvents();
-						events.remove(p);
-						setMyEvents(events);
-						ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
-	            		query.whereEqualTo("user", ParseUser.getCurrentUser());
-	            		UserEvents uE;
-						try {
-							uE = query.getFirst();
-							uE.setEvents(myEvents);
-		            		uE.save();
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-						}
-						adapter = new ArrayAdapter<Event>(getActivity(),
-								android.R.layout.simple_list_item_1,
-								getMyEvents());
-						setListAdapter(adapter);
+    		new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					Event eventToDelete = getMyEvents().get(p);
+					try {
+						eventToDelete.delete();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				});
-        builder.setNegativeButton("View",
-                new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface dialog, int id) {
-        			FragmentManager fm = getActivity().getSupportFragmentManager();
-        			FragmentTransaction transaction = fm.beginTransaction();
-        			
-        		    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
-        		    
-        		    if (fragment == null) {
-        		    	fragment = new EventEditingFragment();
-        		    }
-        		    getActivity().setTitle("Event");
-        		    Event curEvent = myEvents.get(p);
-        		    fragment.curEvent = curEvent;
-        		    transaction.replace(R.id.fragmentContainer, fragment);
-        		    transaction.addToBackStack(null);
-        		    transaction.commit();
-            }		            
+					ArrayList<Event> events = getMyEvents();
+					events.remove(p);
+					setMyEvents(events);
+					ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+            		query.whereEqualTo("user", ParseUser.getCurrentUser());
+            		UserEvents uE;
+					try {
+						uE = query.getFirst();
+						uE.setEvents(myEvents);
+	            		uE.save();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+					}
+					adapter = new ArrayAdapter<Event>(getActivity(),
+							android.R.layout.simple_list_item_1,
+							getMyEvents());
+					setListAdapter(adapter);
+				}
+			});
+    		builder.setNegativeButton("View",
+            new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int id) {
+    			FragmentManager fm = getActivity().getSupportFragmentManager();
+    			FragmentTransaction transaction = fm.beginTransaction();
+    			
+    		    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
+    		    
+    		    if (fragment == null) {
+    		    	fragment = new EventEditingFragment();
+    		    }
+    		    getActivity().setTitle("Event");
+    		    Event curEvent = myEvents.get(p);
+    		    fragment.curEvent = curEvent;
+    		    transaction.replace(R.id.fragmentContainer, fragment);
+    		    //transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
+    		    //transaction.attach(fragment);
+    		    transaction.addToBackStack(null);
+    		    transaction.commit();
+    		}		            
         });
         AlertDialog alert = builder.create();
         alert.show();
@@ -147,7 +149,6 @@ public class EventListFragment extends ListFragment {
 	    	    	fragment = new EventEditingFragment();
 	    	    }
 	    	    getActivity().setTitle("New Event");
-	    	    fragment.curEvent = null;
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();
