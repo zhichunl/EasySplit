@@ -169,6 +169,9 @@ public class EventEditingFragment extends Fragment {
 	    	    transaction.commit();
 	    	    return true;
 	    	}
+	    	case R.id.confirm: {
+	    		
+	    	}
 	        case R.id.event_save: {
 	        		if (curEvent == null) {
 	        			// Only create a new event and add it to UserEvent if it is new
