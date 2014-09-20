@@ -71,7 +71,7 @@ public class Calculator {
 			trans.setAmount(amount);
 			trans.setPayee(payeeInfo.user);
 			trans.setPayer(payerInfo.user);
-			trans.setState(false);
+			trans.setFinished(false);
 			payers.getFirst().amount -= amount;
 			payees.getFirst().amount -= amount;
 			

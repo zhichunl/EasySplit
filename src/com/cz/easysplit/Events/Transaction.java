@@ -36,10 +36,10 @@ public class Transaction extends ParseObject{
 	public void setPayee(ParseUser payee){
 		put("Payee", payee);
 	}
-	public boolean getState() {
+	public boolean getFinished() {
 		return getBoolean("finished");
 	}
-	public void setState(boolean finished) {
+	public void setFinished(boolean finished) {
 		put("finished", finished);
 	}
 }

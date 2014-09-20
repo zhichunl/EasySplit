@@ -52,6 +52,7 @@ public class TransactionListFragment extends ListFragment {
 	    //inflater.inflate(R.menu.event_list_action_bar, menu);
 	}
 	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
@@ -79,42 +80,86 @@ public class TransactionListFragment extends ListFragment {
 			super(getActivity(), 0, transactions);
 		}
 		
+		@Override 
+		public int getViewTypeCount() {
+			return 2;  
+		}
+		
+		@Override
+		public int getItemViewType(int position) {
+			 Transaction trans = transactions.get(position);
+
+			 if (trans.getPayer().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) {
+				 return 0;
+			 } else {
+				 return 1;
+			 }
+		}
+
+		
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			if (convertView == null) {
-				convertView = getActivity().getLayoutInflater()
-								.inflate(R.layout.list_item_transaction, null);	
+			int type = getItemViewType(position);
+			switch (type) {
+				case 0: {
+					convertView = getActivity().getLayoutInflater()
+							.inflate(R.layout.list_item_transaction, null);	
+					Transaction p = transactions.get(position);
+					TextView nameView = (TextView)convertView.findViewById(R.id.list_item_trans_name);
+					nameView.setText(p.getPayee().getUsername());
+					TextView amountView = (TextView)convertView.findViewById(R.id.list_item_trans_amount);
+					amountView.setText((new Double(p.getAmount())).toString());
+					Button pay = (Button)convertView.findViewById(R.id.list_item_pay);
+					pay.setOnClickListener(new View.OnClickListener() {
+				        	@Override
+				        	public void onClick(View v) {
+				        		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+				        		alert.setTitle("amount");
+				        		alert.setMessage("enter amount");
+				        		final EditText input = new EditText(getActivity());
+				        		alert.setView(input);
+				        		
+				        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				        			public void onClick(DialogInterface dialog, int whichButton) {
+				        				//use venmo here
+				        			}
+				        		});
+
+			        			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			        			  public void onClick(DialogInterface dialog, int whichButton) {
+			        			    // Canceled.
+			        			  }
+			        			});
+
+				        			alert.show();
+				        	}
+					});
+					break;
+				}
+				case 1:{
+					convertView = getActivity().getLayoutInflater()
+							.inflate(R.layout.list_item_transaction2, null);	
+					Transaction p = transactions.get(position);
+					
+					TextView payerNameView = (TextView)convertView.findViewById(R.id.list_item_trans2_payer);
+					payerNameView.setText(String.valueOf(p.getPayer().getUsername()));
+					
+					TextView payeeNameView = (TextView)convertView.findViewById(R.id.list_item_trans2_payee);
+					payeeNameView.setText(p.getPayee().getUsername());
+					
+					TextView actionView = (TextView)convertView.findViewById(R.id.list_item_trans2_action);
+					if (p.getFinished()) {
+						actionView.setText(" paid ");
+					} else {
+						actionView.setText(" has to pay ");
+					}
+					
+					TextView amountView = (TextView)convertView.findViewById(R.id.list_item_trans2_amount);
+					amountView.setText((new Double(p.getAmount())).toString());
+				}
 			}
-			Transaction p = transactions.get(position);
-			TextView nameView = (TextView)convertView.findViewById(R.id.list_item_trans_name);
-			nameView.setText(p.getPayee().getUsername());
-			TextView amountView = (TextView)convertView.findViewById(R.id.list_item_trans_amount);
-			amountView.setText((new Double(p.getAmount())).toString());
-			Button pay = (Button)convertView.findViewById(R.id.list_item_pay);
-			pay.setOnClickListener(new View.OnClickListener() {
-		        	@Override
-		        	public void onClick(View v) {
-		        		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-		        		alert.setTitle("amount");
-		        		alert.setMessage("enter amount");
-		        		final EditText input = new EditText(getActivity());
-		        		alert.setView(input);
-		        		
-		        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		        			public void onClick(DialogInterface dialog, int whichButton) {
-		        				//use venmo here
-		        			}
-		        		});
-
-	        			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-	        			  public void onClick(DialogInterface dialog, int whichButton) {
-	        			    // Canceled.
-	        			  }
-	        			});
-
-		        			alert.show();
-		        	}
-			});
+			
+			
 			return convertView;
 		}
 		
