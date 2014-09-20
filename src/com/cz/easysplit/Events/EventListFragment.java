@@ -122,7 +122,6 @@ public class EventListFragment extends ListFragment {
     		    fragment.curEvent = curEvent;
     		    transaction.replace(R.id.fragmentContainer, fragment);
     		    //transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
-    		    //transaction.attach(fragment);
     		    transaction.addToBackStack(null);
     		    transaction.commit();
     		}		            

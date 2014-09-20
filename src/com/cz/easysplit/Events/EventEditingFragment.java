@@ -163,7 +163,7 @@ public class EventEditingFragment extends Fragment {
 	    	    if (fragment == null) {
 	    	    	fragment = new EventListFragment();
 	    	    }    	    	   
-
+	    	    transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();
@@ -217,8 +217,9 @@ public class EventEditingFragment extends Fragment {
     	    	    if (fragment == null) {
     	    	    	fragment = new EventListFragment();
     	    	    }    	    	   
-
+    	    	    transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
     	    	    transaction.replace(R.id.fragmentContainer, fragment);
+    	    	    //transaction.replace(R.id.fragmentContainer, fragment);
     	    	    transaction.addToBackStack(null);
     	    	    transaction.commit();
     	    	    return true;
