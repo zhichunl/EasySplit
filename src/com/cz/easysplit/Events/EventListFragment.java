@@ -111,19 +111,32 @@ public class EventListFragment extends ListFragment {
     		public void onClick(DialogInterface dialog, int id) {
     			FragmentManager fm = getActivity().getSupportFragmentManager();
     			FragmentTransaction transaction = fm.beginTransaction();
-    			
-    		    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
-    		    
-    		    if (fragment == null) {
-    		    	fragment = new EventEditingFragment();
-    		    }
-    		    getActivity().setTitle("Event");
     		    Event curEvent = myEvents.get(p);
-    		    fragment.curEvent = curEvent;
-    		    transaction.replace(R.id.fragmentContainer, fragment);
-    		    //transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
-    		    transaction.addToBackStack(null);
-    		    transaction.commit();
+
+    		    if (curEvent.getConfirmed()) {
+    		    	TransactionListFragment fragment = (TransactionListFragment)fm.findFragmentById(R.id.activity_event_editing);
+        		    
+        		    if (fragment == null) {
+        		    	fragment = new TransactionListFragment();
+        		    }
+        		    getActivity().setTitle(curEvent.getName());
+        		    fragment.eventForThis = curEvent;
+        		    transaction.replace(R.id.fragmentContainer, fragment);
+        		    transaction.addToBackStack(null);
+        		    transaction.commit();	
+    		    } else {	
+        		    EventEditingFragment fragment = (EventEditingFragment)fm.findFragmentById(R.id.activity_event_editing);
+        		    
+        		    if (fragment == null) {
+        		    	fragment = new EventEditingFragment();
+        		    }
+        		    getActivity().setTitle("Event");
+        		    fragment.curEvent = curEvent;
+        		    transaction.replace(R.id.fragmentContainer, fragment);
+        		    transaction.addToBackStack(null);
+        		    transaction.commit();	
+    		    }
+
     		}		            
         });
         AlertDialog alert = builder.create();

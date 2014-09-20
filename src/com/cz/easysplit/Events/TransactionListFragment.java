@@ -9,10 +9,14 @@ import com.parse.ParseUser;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -35,13 +39,40 @@ public class TransactionListFragment extends ListFragment {
 		}
 		adapter = new TransactionAdapter(transactions);
 		setListAdapter(adapter);
+		
+		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+		        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		 }
+		 setHasOptionsMenu(true);
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    super.onCreateOptionsMenu(menu, inflater);
-	    inflater.inflate(R.menu.event_list_action_bar, menu);
+	    //inflater.inflate(R.menu.event_list_action_bar, menu);
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    	case android.R.id.home:
+	    		FragmentManager fm = getActivity().getSupportFragmentManager();
+	    		FragmentTransaction transaction = fm.beginTransaction();
+	    		
+	    	    EventListFragment fragment = (EventListFragment)fm.findFragmentById(R.layout.activity_fragment);
+	    	    
+	    	    if (fragment == null) {
+	    	    	fragment = new EventListFragment();
+	    	    }    	    	   
+	    	    transaction.replace(R.id.fragmentContainer, fragment);
+	    	    transaction.addToBackStack(null);
+	    	    transaction.commit();
+	    	    return true;
+	    	default:
+	        	return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	private class TransactionAdapter extends ArrayAdapter<Transaction> {
 		
 		public TransactionAdapter(ArrayList<Transaction> transactions) {

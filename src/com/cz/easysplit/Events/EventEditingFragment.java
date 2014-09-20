@@ -175,6 +175,7 @@ public class EventEditingFragment extends Fragment {
 		curEvent.setName(projectNameText.getText().toString());
 		curEvent.seteventDate(new Date(911237200));
 		curEvent.setCosts(prepaids);
+		curEvent.setConfirmed(false);
 		try {
 			curEvent.save();
 		} catch (ParseException e) {
