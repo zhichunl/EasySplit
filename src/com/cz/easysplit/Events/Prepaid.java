@@ -1,11 +1,14 @@
 package com.cz.easysplit.Events;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils.Permissions.User;
 import com.parse.ParseObject;
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
  
 @ParseClassName("Prepaid")
 public class Prepaid extends ParseObject {
+	private String userId;  
+	private String userName;  // Might change
 
 	public double getAmountPaid() {
 		 return getDouble("AmountPaid");
@@ -13,6 +16,10 @@ public class Prepaid extends ParseObject {
 	
 	public void setAmountPaid(double amount){
 		put("AmountPaid", amount);
+	}
+	
+	public ParseUser getUserPointer() {
+		return getParseUser("User");
 	}
 	
 	//TODO: Is returning null the best way?
@@ -32,6 +39,18 @@ public class Prepaid extends ParseObject {
 
 	@Override
 	public String toString() {
-		return getUser().getUsername() + "     " + getAmountPaid();
+		if (userName != null) {
+			return userName + "     " + getAmountPaid();
+		} else {
+			return getUser().getUsername() + "     " + getAmountPaid();
+		}
+	}
+	
+	public String getUserId() {
+		if (userId != null) {
+			return userId;
+		} else {
+			return getUser().getObjectId();	
+		}
 	}
 }
