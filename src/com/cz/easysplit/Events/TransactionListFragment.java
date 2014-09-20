@@ -3,20 +3,38 @@ package com.cz.easysplit.Events;
 import java.util.ArrayList;
 
 import com.cz.easysplit.R;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class TransactionListFragment extends ListFragment {
 	private ArrayList<Transaction> transactions;
 	private ArrayAdapter<Transaction> adapter;
-
+    public Event eventForThis;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);		
+		super.onCreate(savedInstanceState);
+		transactions = new ArrayList<Transaction>();
+		try {
+			transactions = eventForThis.getTransactions();			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+		}
+		adapter = new TransactionAdapter(transactions);
+		setListAdapter(adapter);
 	}
 	
 	@Override
@@ -24,5 +42,50 @@ public class TransactionListFragment extends ListFragment {
 	    super.onCreateOptionsMenu(menu, inflater);
 	    inflater.inflate(R.menu.event_list_action_bar, menu);
 	}
-	
+	private class TransactionAdapter extends ArrayAdapter<Transaction> {
+		
+		public TransactionAdapter(ArrayList<Transaction> transactions) {
+			super(getActivity(), 0, transactions);
+		}
+		
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = getActivity().getLayoutInflater()
+								.inflate(R.layout.list_item_transaction, null);	
+			}
+			Transaction p = transactions.get(position);
+			TextView nameView = (TextView)convertView.findViewById(R.id.list_item_trans_name);
+			nameView.setText(p.getPayee().getUsername());
+			TextView amountView = (TextView)convertView.findViewById(R.id.list_item_trans_amount);
+			amountView.setText((new Double(p.getAmount())).toString());
+			Button pay = (Button)convertView.findViewById(R.id.list_item_pay);
+			pay.setOnClickListener(new View.OnClickListener() {
+		        	@Override
+		        	public void onClick(View v) {
+		        		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		        		alert.setTitle("amount");
+		        		alert.setMessage("enter amount");
+		        		final EditText input = new EditText(getActivity());
+		        		alert.setView(input);
+		        		
+		        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		        			public void onClick(DialogInterface dialog, int whichButton) {
+		        				//use venmo here
+		        			}
+		        		});
+
+	        			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	        			  public void onClick(DialogInterface dialog, int whichButton) {
+	        			    // Canceled.
+	        			  }
+	        			});
+
+		        			alert.show();
+		        	}
+			});
+			return convertView;
+		}
+		
+	}
 }

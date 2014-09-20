@@ -12,14 +12,26 @@ public class Transaction extends ParseObject{
 	public void setAmount(double paid){
 		put("Amount", paid);
 	}
-	public ParseUser getPayer() throws ParseException {
-		return getParseUser("Payer").fetch();
+	public ParseUser getPayer() {
+		try {
+			return getParseUser("Payer").fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public void setPayer(ParseUser payer){
 		put("Payer", payer);
 	}
-	public ParseUser getPayee() throws ParseException{
-		return getParseUser("Payee").fetch();
+	public ParseUser getPayee(){
+		try {
+			return getParseUser("Payee").fetch();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public void setPayee(ParseUser payee){
 		put("Payee", payee);

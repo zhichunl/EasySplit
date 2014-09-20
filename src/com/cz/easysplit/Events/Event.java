@@ -19,6 +19,12 @@ public class Event extends ParseObject{
 	public void setName(String name){
 		put("name", name);
 	}
+	public void setConfirmed(Boolean b){
+		put("confirmed", b);
+	}
+	public Boolean getConfirmed(){
+		return getBoolean("confirmed");
+	}
 	public Date geteventDate(){
 		return getDate("eventDate");
 	}
@@ -47,6 +53,9 @@ public class Event extends ParseObject{
 	
 	public ArrayList<Transaction> getTransactions() throws ParseException{
 		List<Transaction> transactions = getList("transactions");
+		if (transactions == null){
+			return new ArrayList<Transaction>();
+		}
 		ArrayList<Transaction> transFetched = new ArrayList<Transaction>();
 		for (Transaction p : transactions){
 			Transaction pF = p.fetch();

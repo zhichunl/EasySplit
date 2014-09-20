@@ -173,15 +173,21 @@ public class EventEditingFragment extends Fragment {
     		    FragmentManager fm = getActivity().getSupportFragmentManager();
 	    		FragmentTransaction transaction = fm.beginTransaction();
     		    TransactionListFragment fragment = (TransactionListFragment)fm.findFragmentById(R.id.activity_event_editing);
-
-	    	    
 	    	    if (fragment == null) {
 	    	    	fragment = new TransactionListFragment();
 	    	    }
     		    getActivity().setTitle(curEvent.getName());
+    		    fragment.eventForThis = curEvent;
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();
+	    	    curEvent.setConfirmed(true);
+	    		try {
+					curEvent.save();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    	    return true;
 	    	}
 	        case R.id.event_save: {
