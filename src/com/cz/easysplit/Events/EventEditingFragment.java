@@ -145,6 +145,44 @@ public class EventEditingFragment extends Fragment {
 	    inflater.inflate(R.menu.event_editting_action_bar, menu);
 	}
 	
+	public void eventSave(){
+		if (curEvent == null) {
+			// Only create a new event and add it to UserEvent if it is new
+			curEvent = new Event();
+    		
+    		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+    		query.whereEqualTo("user", ParseUser.getCurrentUser());
+    		try {
+    			UserEvents uE = (UserEvents)query.getFirst();
+				uE.setUser(ParseUser.getCurrentUser());
+				ArrayList<Event> allEvents = uE.getEvents();
+				allEvents.add(curEvent);
+				uE.setEvents(allEvents);
+				uE.save();	
+    		} catch (ParseException e) {
+    			// TODO Auto-generated catch block
+    		}
+		}
+		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
+		for (Prepaid p : prepaids) {
+			try {
+				p.save();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		final EditText projectNameText = (EditText) getActivity().findViewById(R.id.event_name);
+		curEvent.setName(projectNameText.getText().toString());
+		curEvent.seteventDate(new Date(911237200));
+		curEvent.setCosts(prepaids);
+		try {
+			curEvent.save();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
@@ -170,6 +208,7 @@ public class EventEditingFragment extends Fragment {
 	    	    return true;
 	    	}
 	    	case R.id.event_confirm: {
+	    		eventSave();
     		    FragmentManager fm = getActivity().getSupportFragmentManager();
 	    		FragmentTransaction transaction = fm.beginTransaction();
     		    TransactionListFragment fragment = (TransactionListFragment)fm.findFragmentById(R.id.activity_event_editing);
@@ -178,6 +217,18 @@ public class EventEditingFragment extends Fragment {
 	    	    }
     		    getActivity().setTitle(curEvent.getName());
     		    fragment.eventForThis = curEvent;
+    		    //TODO: change to singleton
+    		    Calculator cal = new Calculator();
+    		    ArrayList<Transaction> trans = cal.splitEvenly(curEvent.getCosts());
+    		    curEvent.setTransactions(trans);
+    		    for (Transaction t : trans){
+    		    	try {
+						t.save();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    		    }
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();
@@ -191,42 +242,7 @@ public class EventEditingFragment extends Fragment {
 	    	    return true;
 	    	}
 	        case R.id.event_save: {
-	        		if (curEvent == null) {
-	        			// Only create a new event and add it to UserEvent if it is new
-	        			curEvent = new Event();
-	            		
-	            		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
-	            		query.whereEqualTo("user", ParseUser.getCurrentUser());
-	            		try {
-	            			UserEvents uE = (UserEvents)query.getFirst();
-	        				uE.setUser(ParseUser.getCurrentUser());
-	        				ArrayList<Event> allEvents = uE.getEvents();
-	        				allEvents.add(curEvent);
-	        				uE.setEvents(allEvents);
-	        				uE.save();	
-	            		} catch (ParseException e) {
-	            			// TODO Auto-generated catch block
-	            		}
-	        		}
-            		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
-            		for (Prepaid p : prepaids) {
-        				try {
-    						p.save();
-    					} catch (ParseException e) {
-    						e.printStackTrace();
-    					}
-            		}
-            		final EditText projectNameText = (EditText) getActivity().findViewById(R.id.event_name);
-            		curEvent.setName(projectNameText.getText().toString());
-            		curEvent.seteventDate(new Date(911237200));
-            		curEvent.setCosts(prepaids);
-            		try {
-            			curEvent.save();
-            		} catch (ParseException e) {
-            			// TODO Auto-generated catch block
-            			e.printStackTrace();
-            		}
-            		
+            		eventSave();
             		FragmentManager fm = getActivity().getSupportFragmentManager();
     	    		FragmentTransaction transaction = fm.beginTransaction();
     	    		
