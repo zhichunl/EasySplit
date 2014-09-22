@@ -7,6 +7,7 @@ import java.util.List;
 import com.cz.easysplit.R;
 import com.cz.easysplit.General.MainActivity;
 import com.cz.easysplit.General.SignUpActivity;
+import com.cz.easysplit.Payments.Payment;
 import com.cz.easysplit.R.menu;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -225,6 +226,51 @@ public class EventEditingFragment extends Fragment {
     		    for (Transaction t : trans){
     		    	try {
 						t.save();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    		    	ParseUser payer = t.getPayer();
+    		    	ParseUser payee = t.getPayee();
+    		    	ParseQuery<Payment> query = ParseQuery.getQuery(Payment.class);
+    		    	query.whereEqualTo("from", payer);
+    		    	query.whereEqualTo("to", payee);
+    		    	ParseQuery<Payment> query1 = ParseQuery.getQuery(Payment.class);
+    		    	query1.whereEqualTo("to", payer);
+    		    	query1.whereEqualTo("from", payee);
+    		    	try {
+    		    		ArrayList<Payment> cur = (ArrayList<Payment>) query.find();
+    		    		ArrayList<Payment> curRev = (ArrayList<Payment>) query1.find();
+						if (!cur.isEmpty()){
+							Payment curP = cur.get(0);
+							curP = curP.fetchIfNeeded();
+							double amount = curP.getAmount();
+							amount += t.getAmount();
+							curP.setAmount(amount);
+							curP.save();
+						}
+						else{
+							Payment newPay = new Payment();
+							newPay.setFrom(payer);
+							newPay.setTo(payee);
+							newPay.setAmount(t.getAmount());
+							newPay.save();
+						}
+						if (!curRev.isEmpty()){
+							Payment curPRev = curRev.get(0);
+							curPRev = curPRev.fetchIfNeeded();
+							double amount1 = curPRev.getAmount();
+							amount1 -= t.getAmount();
+							curPRev.setAmount(amount1);
+							curPRev.save();
+						}
+						else{
+							Payment newPay1 = new Payment();
+							newPay1.setFrom(payee);
+							newPay1.setTo(payer);
+							newPay1.setAmount(-1*t.getAmount());
+							newPay1.save();
+						}
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
