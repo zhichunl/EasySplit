@@ -32,7 +32,7 @@ public class PrepaidListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		if (myPrepaids == null) {
-			myPrepaids = new ArrayList(); //EventLab.get(getActivity()).getEvents();
+			myPrepaids = new ArrayList(); 
 			Prepaid prepaid = new Prepaid();
 			prepaid.setUser(ParseUser.getCurrentUser());
 			prepaid.setAmountPaid(0);
@@ -47,7 +47,6 @@ public class PrepaidListFragment extends ListFragment {
 	}
 	
 	public void updatePrepaidList() {
-	    //adapter.clear();
 	    adapter.notifyDataSetChanged();
 	}
 	

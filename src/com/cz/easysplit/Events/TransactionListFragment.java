@@ -3,12 +3,14 @@ package com.cz.easysplit.Events;
 import java.util.ArrayList;
 
 import com.cz.easysplit.R;
+import com.cz.easysplit.General.MainActivity;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -118,6 +120,17 @@ public class TransactionListFragment extends ListFragment {
 				        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				        			public void onClick(DialogInterface dialog, int whichButton) {
 				        				//use venmo here
+				        				try {
+				        			        Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+				        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 
+				        			    }
+				        			    catch (android.content.ActivityNotFoundException e) //Venmo native app not install on device, so let's instead open a mobile web version of Venmo in a WebView
+				        			    {
+				        			        Intent venmoIntent = new Intent(getActivity(), VenmoWebViewActivity.class);
+				        			        String venmo_uri = VenmoLibrary.openVenmoPaymentInWebView("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+				        			        venmoIntent.putExtra("url", venmo_uri);
+				        			        startActivityForResult(venmoIntent, 1);
+				        			    }
 				        			}
 				        		});
 

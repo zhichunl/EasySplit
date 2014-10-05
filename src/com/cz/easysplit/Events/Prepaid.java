@@ -52,21 +52,20 @@ public class Prepaid extends ParseObject {
 		userName = user.getUsername();
 		currentUser = user;
 	}
+	
+	public String getUserName() {
+		if (userName == null) {
+			ParseUser user = getUser();
+			if (user != null) {
+				userName = getUser().getUsername();
+			}
+		} 
+		return userName;
+	}
 
 	@Override
 	public String toString() {
-		if (userName != null && (amountPaid != -1)) {
-			return userName + "     " + amountPaid;
-		} 
-		else if (amountPaid != -1){
-			userName = getUser().getUsername();
-			return userName + "     " + amountPaid;
-		}
-		else{
-			userName = getUser().getUsername();
-			getAmountPaid();
-			return userName + "     " + amountPaid;
-		}
+		return getUserName() + "     " + getAmountPaid();
 	}
 	
 	public String getUserId() {
