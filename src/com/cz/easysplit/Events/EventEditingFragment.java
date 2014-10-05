@@ -138,13 +138,21 @@ public class EventEditingFragment extends Fragment {
 	}
 	
 	public void eventSave(){
+		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
+		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+		for (Prepaid p : prepaids) {
+			try {
+				p.save();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		if (curEvent == null) {
 			// Only create a new event and add it to UserEvent if it is new
 			curEvent = new Event();
-    		
-    		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
-    		
-    		query.whereEqualTo("user", ParseUser.getCurrentUser());
+    		   		
+    		/*query.whereEqualTo("user", ParseUser.getCurrentUser());
     		try {
     			UserEvents uE = (UserEvents)query.getFirst();
 				//uE.setUser(ParseUser.getCurrentUser());
@@ -154,23 +162,22 @@ public class EventEditingFragment extends Fragment {
 				uE.save();	
     		} catch (ParseException e) {
     			// TODO Auto-generated catch block
+    		}*/
+    		
+    		for (Prepaid p : prepaids) {
+    			try {
+    				query.whereEqualTo("user", p.getUserPointer());
+    				UserEvents uE = (UserEvents)query.getFirst();
+    				ArrayList<Event> allEvents = uE.getEvents();
+    				allEvents.add(curEvent);
+    				uE.setEvents(allEvents);
+    				uE.save();
+    			} catch (ParseException e) {
+    				e.printStackTrace();
+    			}
     		}
 		}
-		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
-		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
-		for (Prepaid p : prepaids) {
-			try {
-				p.save();
-				query.whereEqualTo("user", p.getUserPointer());
-				UserEvents uE = (UserEvents)query.getFirst();
-				ArrayList<Event> allEvents = uE.getEvents();
-				allEvents.add(curEvent);
-				uE.setEvents(allEvents);
-				uE.save();	
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
+		
 		final EditText projectNameText = (EditText) getActivity().findViewById(R.id.event_name);
 		curEvent.setName(projectNameText.getText().toString());
 		curEvent.seteventDate(new Date(911237200));

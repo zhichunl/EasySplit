@@ -32,11 +32,7 @@ public class TransactionListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		transactions = new ArrayList<Transaction>();
-		try {
-			transactions = eventForThis.getTransactions();			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-		}
+		transactions = eventForThis.getTransactions();
 		adapter = new TransactionAdapter(transactions);
 		setListAdapter(adapter);
 		
