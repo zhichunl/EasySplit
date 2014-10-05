@@ -43,15 +43,6 @@ public class EventEditingFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//getActivity().setTitle("New Event");
-		
-		/*ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(),
-											android.R.layout.simple_list_item_1,
-											new ArrayList());
-		setListAdapter(adapter);
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-		        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		 }*/
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
 	    }
@@ -152,10 +143,11 @@ public class EventEditingFragment extends Fragment {
 			curEvent = new Event();
     		
     		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
+    		
     		query.whereEqualTo("user", ParseUser.getCurrentUser());
     		try {
     			UserEvents uE = (UserEvents)query.getFirst();
-				uE.setUser(ParseUser.getCurrentUser());
+				//uE.setUser(ParseUser.getCurrentUser());
 				ArrayList<Event> allEvents = uE.getEvents();
 				allEvents.add(curEvent);
 				uE.setEvents(allEvents);
@@ -165,9 +157,16 @@ public class EventEditingFragment extends Fragment {
     		}
 		}
 		ArrayList<Prepaid> prepaids = prepaidListFragment.getPrepaids();
+		ParseQuery<UserEvents> query = ParseQuery.getQuery(UserEvents.class);
 		for (Prepaid p : prepaids) {
 			try {
 				p.save();
+				query.whereEqualTo("user", p.getUserPointer());
+				UserEvents uE = (UserEvents)query.getFirst();
+				ArrayList<Event> allEvents = uE.getEvents();
+				allEvents.add(curEvent);
+				uE.setEvents(allEvents);
+				uE.save();	
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
