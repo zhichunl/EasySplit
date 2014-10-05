@@ -45,6 +45,8 @@
 	        <meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value="com.cz.easysplit.General.LoginActivity"/>
         </activity>
+        <activity android:name="com.cz.easysplit.Events.VenmoWebViewActivity">
+	    </activity>
         <activity
             android:name="com.cz.easysplit.General.LoginActivity"
             android:label="@string/app_name" >

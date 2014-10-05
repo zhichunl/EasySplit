@@ -27,18 +27,18 @@ public final class R {
     public static final class id {
         public static final int activity_event_editing=0x7f080000;
         public static final int addAPerson=0x7f080003;
-        public static final int addEvent=0x7f08001d;
+        public static final int addEvent=0x7f08001e;
         public static final int confirm=0x7f08000e;
         public static final int done=0x7f08000f;
         public static final int eventAttenderContainer=0x7f080005;
         public static final int eventCreationHint=0x7f080004;
         public static final int event_button=0x7f08000b;
-        public static final int event_cancel=0x7f08001a;
-        public static final int event_confirm=0x7f08001c;
+        public static final int event_cancel=0x7f08001b;
+        public static final int event_confirm=0x7f08001d;
         public static final int event_name=0x7f080001;
-        public static final int event_save=0x7f08001b;
+        public static final int event_save=0x7f08001c;
         public static final int fragmentContainer=0x7f080006;
-        public static final int joinEvent=0x7f08001e;
+        public static final int joinEvent=0x7f08001f;
         public static final int list_item_pay=0x7f080013;
         public static final int list_item_prepaid_add_amount=0x7f080010;
         public static final int list_item_prepaid_amount=0x7f080012;
@@ -50,13 +50,14 @@ public final class R {
         public static final int list_item_trans_amount=0x7f080015;
         public static final int list_item_trans_name=0x7f080014;
         public static final int login=0x7f080009;
-        public static final int logout=0x7f08001f;
+        public static final int logout=0x7f080020;
         public static final int password=0x7f080008;
         public static final int payment_button=0x7f08000c;
         public static final int person_to_add_to_event=0x7f080002;
         public static final int setting_button=0x7f08000d;
         public static final int signup=0x7f08000a;
         public static final int username=0x7f080007;
+        public static final int venmo_wv=0x7f08001a;
     }
     public static final class layout {
         public static final int activity_event_editing=0x7f030000;
@@ -69,6 +70,7 @@ public final class R {
         public static final int list_item_prepaid=0x7f030007;
         public static final int list_item_transaction=0x7f030008;
         public static final int list_item_transaction2=0x7f030009;
+        public static final int venmo_webview=0x7f03000a;
     }
     public static final class menu {
         public static final int event_editting_action_bar=0x7f070000;
