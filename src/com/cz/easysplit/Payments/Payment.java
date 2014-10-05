@@ -10,32 +10,44 @@ import com.parse.ParseUser;
 
 @ParseClassName("Payment")
 public class Payment extends ParseObject {
-	/*public String from;
-	public String to;
-	public double amount;
-	public boolean paid;*/
+	private Double amount = null;
+	private ParseUser fromUser = null;
+	private ParseUser toUser = null; 
 	
 	public double getAmount() {
-		return getDouble("amount");
+		if (amount == null) {
+			amount = getDouble("amount");
+		}
+		return amount;
 	}
 	
-	public void setAmount(double amount) {
+	public void setAmount(double a) {
+		amount = a;
 		put("amount", amount);
+		
 	}
 	
 	public ParseUser getFrom() throws ParseException {
-		return getParseUser("from").fetch();
+		if (fromUser == null) {
+			fromUser= getParseUser("from").fetch();
+		} 
+		return fromUser;
 	}
 	
 	public void setFrom(ParseUser user) {
+		fromUser = user;
 		put("from", user);
 	}
 	
 	public ParseUser getTo() throws ParseException {
-		return getParseUser("to").fetch();
+		if (toUser == null) {
+			toUser = getParseUser("to").fetch();
+		}
+		return toUser;
 	}
 	
 	public void setTo(ParseUser user) {
+		toUser = user;
 		put("to", user);
 	}
 

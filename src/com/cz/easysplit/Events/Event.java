@@ -13,63 +13,98 @@ import com.parse.ParseClassName;
 
 @ParseClassName("Event")
 public class Event extends ParseObject{
-	public String getName(){
-		return getString("name");
+	private String eventName = null;
+	private Boolean confirmed = null;
+	private Date eventDate = null;
+	private ArrayList<Prepaid> eventPrepaids = null;
+	private ArrayList<Transaction> eventTransactions = null;
+	
+ 	public String getName(){
+ 		if (eventName == null) {
+ 			eventName = getString("name");
+ 		}
+ 		return eventName;
 	}
-	public void setName(String name){
-		put("name", name);
+	public void setName(String aEventName){
+		eventName = aEventName;
+		put("name", eventName);
 	}
-	public void setConfirmed(Boolean b){
-		put("confirmed", b);
-	}
+	
 	public Boolean getConfirmed(){
-		return getBoolean("confirmed");
+		if (confirmed == null) {
+			confirmed = getBoolean("confirmed");
+		}
+		return confirmed;
 	}
+	
+	public void setConfirmed(Boolean b){
+		confirmed = b;
+		put("confirmed", confirmed);
+	}
+	
 	public Date geteventDate(){
-		return getDate("eventDate");
+		if (eventDate == null) {
+			eventDate = getDate("eventDate");
+		}
+		return eventDate;
 	}
+	
 	public void seteventDate(Date eDate){
 		put("eventDate", eDate);
 	}
+	
 	public ArrayList<Prepaid> getCosts() {
+		if (eventPrepaids != null) {
+			return eventPrepaids;
+		}
 		List<Prepaid> prepaids = getList("costs");
-		ArrayList<Prepaid> prepaidsFetched = new ArrayList<Prepaid>();
+		eventPrepaids = new ArrayList<Prepaid>();
 		for (Prepaid p : prepaids){
 			Prepaid pF;
 			try {
 				pF = (Prepaid)p.fetch();
-				prepaidsFetched.add(pF);
+				eventPrepaids.add(pF);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return prepaidsFetched;
+		return eventPrepaids;
 	}
 	
 	public void setCosts(ArrayList<Prepaid> costs){
+		eventPrepaids = costs;
 		put("costs", costs);
 	}
 	
-	public ArrayList<Transaction> getTransactions() throws ParseException{
+	public ArrayList<Transaction> getTransactions() {
+		if (eventTransactions != null) {
+			return eventTransactions;
+		}
 		List<Transaction> transactions = getList("transactions");
 		if (transactions == null){
 			return new ArrayList<Transaction>();
 		}
-		ArrayList<Transaction> transFetched = new ArrayList<Transaction>();
+		eventTransactions = new ArrayList<Transaction>();
 		for (Transaction p : transactions){
-			Transaction pF = p.fetch();
-			transFetched.add(pF);
+			try {
+				Transaction pF = p.fetch();
+				eventTransactions.add(pF);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return transFetched;
+		return eventTransactions;
 	}
 	public void setTransactions(ArrayList<Transaction> trans){
+		eventTransactions = trans;
 		put("transactions", trans);
 	}
 	
 	@Override
 	public String toString(){
 		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-		return getName() + " " + df.format(geteventDate());
+		return getName();
 	}
 }
