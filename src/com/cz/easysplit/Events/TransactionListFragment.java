@@ -111,8 +111,21 @@ public class TransactionListFragment extends ListFragment {
 					pay.setOnClickListener(new View.OnClickListener() {
 				        	@Override
 				        	public void onClick(View v) {
-				        		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-				        		alert.setTitle("amount");
+				        		if (VenmoLibrary.isVenmoInstalled(getContext())) {
+		        					Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+		        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 	
+		        				} else{
+		        					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		        					alert.setMessage("Please download Venmo App before moving on.");
+		        					alert.setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+					        			  public void onClick(DialogInterface dialog, int whichButton) {
+					        			    // Canceled.
+					        			  }
+					        		});
+		        					alert.show();	
+		        				}
+				        		/*AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+				        		alert.setTitle("Paying");
 				        		alert.setMessage("enter amount");
 				        		final EditText input = new EditText(getActivity());
 				        		alert.setView(input);
@@ -120,17 +133,15 @@ public class TransactionListFragment extends ListFragment {
 				        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				        			public void onClick(DialogInterface dialog, int whichButton) {
 				        				//use venmo here
-				        				try {
-				        			        Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
-				        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 
-				        			    }
-				        			    catch (android.content.ActivityNotFoundException e) //Venmo native app not install on device, so let's instead open a mobile web version of Venmo in a WebView
-				        			    {
-				        			        Intent venmoIntent = new Intent(getActivity(), VenmoWebViewActivity.class);
-				        			        String venmo_uri = VenmoLibrary.openVenmoPaymentInWebView("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
-				        			        venmoIntent.putExtra("url", venmo_uri);
-				        			        startActivityForResult(venmoIntent, 1);
-				        			    }
+				        				if (VenmoLibrary.isVenmoInstalled(getContext())) {
+				        					Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+				        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 	
+				        				} else{
+				        					//alert.setMessage("Please download Venmo App before moving on.");
+				        					AlertDialog.Builder alert2 = new AlertDialog.Builder(getActivity());
+				        					alert2.setMessage("Please download Venmo App before moving on.");
+				        					alert2.show();
+				        				}
 				        			}
 				        		});
 
@@ -140,7 +151,7 @@ public class TransactionListFragment extends ListFragment {
 			        			  }
 			        			});
 
-				        			alert.show();
+				        		alert.show();*/
 				        	}
 					});
 					break;
