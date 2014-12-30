@@ -77,7 +77,7 @@ public class EventEditingFragment extends Fragment {
 
         		// check if the username already exists. TODO: Too slow??
         		for (Prepaid p : prepaidListFragment.getPrepaids()) {     		
-        			if (p.getUser().getUsername().equals(username)) {
+        			if (p.getUserName().equals(username)) {
 					    builder.setMessage("This user has already been added.");
 					    builder.setCancelable(true);
 					    builder.setNegativeButton("Okay",
@@ -127,8 +127,7 @@ public class EventEditingFragment extends Fragment {
         });
 	    
 	    
-		return inflatedView;
-		
+		return inflatedView;		
 	}
 	
 	@Override
@@ -151,19 +150,6 @@ public class EventEditingFragment extends Fragment {
 		if (curEvent == null) {
 			// Only create a new event and add it to UserEvent if it is new
 			curEvent = new Event();
-    		   		
-    		/*query.whereEqualTo("user", ParseUser.getCurrentUser());
-    		try {
-    			UserEvents uE = (UserEvents)query.getFirst();
-				//uE.setUser(ParseUser.getCurrentUser());
-				ArrayList<Event> allEvents = uE.getEvents();
-				allEvents.add(curEvent);
-				uE.setEvents(allEvents);
-				uE.save();	
-    		} catch (ParseException e) {
-    			// TODO Auto-generated catch block
-    		}*/
-    		
     		for (Prepaid p : prepaids) {
     			try {
     				query.whereEqualTo("user", p.getUserPointer());
@@ -194,12 +180,6 @@ public class EventEditingFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	        //case android.R.id.home:
-	        	//if (NavUtils.getParentActivityName(getActivity()) != null) {
-	                //NavUtils.navigateUpFromSameTask(getActivity());
-	            //}	        	
-	        	//return true;
-	        // TODO: Does not save seems that
 	    	case R.id.event_cancel: {
         		FragmentManager fm = getActivity().getSupportFragmentManager();
 	    		FragmentTransaction transaction = fm.beginTransaction();
@@ -209,7 +189,6 @@ public class EventEditingFragment extends Fragment {
 	    	    if (fragment == null) {
 	    	    	fragment = new EventListFragment();
 	    	    }    	    	   
-	    	    //transaction.detach(fm.findFragmentById(R.id.fragmentContainer));
 	    	    transaction.replace(R.id.fragmentContainer, fragment);
 	    	    transaction.addToBackStack(null);
 	    	    transaction.commit();

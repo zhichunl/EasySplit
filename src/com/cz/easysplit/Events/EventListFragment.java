@@ -113,6 +113,7 @@ public class EventListFragment extends ListFragment {
     			FragmentTransaction transaction = fm.beginTransaction();
     		    Event curEvent = myEvents.get(p);
 
+    		    // Enter different views depending on whether an event has been confirmed or not
     		    if (curEvent.getConfirmed()) {
     		    	TransactionListFragment fragment = (TransactionListFragment)fm.findFragmentById(R.id.activity_event_editing);
         		    
@@ -170,11 +171,4 @@ public class EventListFragment extends ListFragment {
 
 	    } 
 	}
-	
-	/*@Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        // TODO Auto-generated method stub
-        super.onWindowFocusChanged(hasFocus);
-    doWhateverAfterScreenViewIsRendered();
-    }*/
 }

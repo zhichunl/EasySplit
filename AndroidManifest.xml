@@ -29,6 +29,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.cz.easysplit.Events.VenmoWebViewActivity"
+            android:theme="@android:style/Theme.NoTitleBar">                  
+	    </activity>
         <activity android:name="com.cz.easysplit.Events.EventActivity">
         	<meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value="com.cz.easysplit.General.MainActivity"/>
@@ -45,8 +48,6 @@
 	        <meta-data android:name="android.support.PARENT_ACTIVITY"
                    android:value="com.cz.easysplit.General.LoginActivity"/>
         </activity>
-        <activity android:name="com.cz.easysplit.Events.VenmoWebViewActivity">
-	    </activity>
         <activity
             android:name="com.cz.easysplit.General.LoginActivity"
             android:label="@string/app_name" >

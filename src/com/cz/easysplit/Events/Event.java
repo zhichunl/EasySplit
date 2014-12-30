@@ -91,7 +91,6 @@ public class Event extends ParseObject{
 				Transaction pF = p.fetch();
 				eventTransactions.add(pF);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

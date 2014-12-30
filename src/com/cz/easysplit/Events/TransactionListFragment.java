@@ -3,12 +3,14 @@ package com.cz.easysplit.Events;
 import java.util.ArrayList;
 
 import com.cz.easysplit.R;
+import com.cz.easysplit.General.MainActivity;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -109,8 +111,21 @@ public class TransactionListFragment extends ListFragment {
 					pay.setOnClickListener(new View.OnClickListener() {
 				        	@Override
 				        	public void onClick(View v) {
-				        		AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-				        		alert.setTitle("amount");
+				        		if (VenmoLibrary.isVenmoInstalled(getContext())) {
+		        					Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+		        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 	
+		        				} else{
+		        					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+		        					alert.setMessage("Please download Venmo App before moving on.");
+		        					alert.setNegativeButton("Okay", new DialogInterface.OnClickListener() {
+					        			  public void onClick(DialogInterface dialog, int whichButton) {
+					        			    // Canceled.
+					        			  }
+					        		});
+		        					alert.show();	
+		        				}
+				        		/*AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+				        		alert.setTitle("Paying");
 				        		alert.setMessage("enter amount");
 				        		final EditText input = new EditText(getActivity());
 				        		alert.setView(input);
@@ -118,6 +133,15 @@ public class TransactionListFragment extends ListFragment {
 				        		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				        			public void onClick(DialogInterface dialog, int whichButton) {
 				        				//use venmo here
+				        				if (VenmoLibrary.isVenmoInstalled(getContext())) {
+				        					Intent venmoIntent = VenmoLibrary.openVenmoPayment("2019", "EasySplit","4129445577", "0.1", "Testing", "pay");
+				        			        startActivityForResult(venmoIntent, 1); //1 is the requestCode we are using for Venmo. Feel free to change this to another number. 	
+				        				} else{
+				        					//alert.setMessage("Please download Venmo App before moving on.");
+				        					AlertDialog.Builder alert2 = new AlertDialog.Builder(getActivity());
+				        					alert2.setMessage("Please download Venmo App before moving on.");
+				        					alert2.show();
+				        				}
 				        			}
 				        		});
 
@@ -127,7 +151,7 @@ public class TransactionListFragment extends ListFragment {
 			        			  }
 			        			});
 
-				        			alert.show();
+				        		alert.show();*/
 				        	}
 					});
 					break;
